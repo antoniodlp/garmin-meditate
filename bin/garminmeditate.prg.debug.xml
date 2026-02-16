@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<debugInfo>
+    <manifest filename="C:\Source\garmin-meditate\manifest.xml"/>
+    <pcToLineNum>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerApp.mc" id="1" lineNum="4" parent="globals/MeditateTimerApp" pc="268435460" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="2" lineNum="10" parent="globals/MeditateTimerView" pc="268435479" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="2" lineNum="16" parent="globals/MeditateTimerView" pc="268435497" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="2" lineNum="17" parent="globals/MeditateTimerView" pc="268435550" symbol="&lt;init&gt;"/>
+        <entry filename="c:\\Source\\garmin-meditate\\bin\\gen\\006-B3076-00\\source\\Rez.mcgen" id="3" lineNum="7" parent="globals/Rez" pc="268435604" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerApp.mc" id="4" lineNum="10" parent="globals/MeditateTimerApp" pc="268435628" symbol="onStart"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerApp.mc" id="5" lineNum="16" parent="globals/MeditateTimerApp" pc="268435631" symbol="getInitialView"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerApp.mc" id="5" lineNum="17" parent="globals/MeditateTimerApp" pc="268435633" symbol="getInitialView"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerApp.mc" id="6" lineNum="6" parent="globals/MeditateTimerApp" pc="268435670" symbol="initialize"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerApp.mc" id="6" lineNum="7" parent="globals/MeditateTimerApp" pc="268435672" symbol="initialize"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerApp.mc" id="7" lineNum="13" parent="globals/MeditateTimerApp" pc="268435691" symbol="onStop"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="8" lineNum="186" parent="globals/MeditateTimerView" pc="268435694" symbol="sendVibePulse"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="8" lineNum="187" parent="globals/MeditateTimerView" pc="268435696" symbol="sendVibePulse"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="8" lineNum="188" parent="globals/MeditateTimerView" pc="268435713" symbol="sendVibePulse"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="8" lineNum="189" parent="globals/MeditateTimerView" pc="268435726" symbol="sendVibePulse"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="8" lineNum="191" parent="globals/MeditateTimerView" pc="268435747" symbol="sendVibePulse"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="8" lineNum="194" parent="globals/MeditateTimerView" pc="268435751" symbol="sendVibePulse"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="8" lineNum="195" parent="globals/MeditateTimerView" pc="268435817" symbol="sendVibePulse"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="86" parent="globals/MeditateTimerView" pc="268435837" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="87" parent="globals/MeditateTimerView" pc="268435839" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="88" parent="globals/MeditateTimerView" pc="268435850" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="91" parent="globals/MeditateTimerView" pc="268435854" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="93" parent="globals/MeditateTimerView" pc="268435866" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="94" parent="globals/MeditateTimerView" pc="268435883" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="95" parent="globals/MeditateTimerView" pc="268435902" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="96" parent="globals/MeditateTimerView" pc="268435918" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="99" parent="globals/MeditateTimerView" pc="268435922" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="101" parent="globals/MeditateTimerView" pc="268435934" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="102" parent="globals/MeditateTimerView" pc="268435969" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="103" parent="globals/MeditateTimerView" pc="268435988" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="104" parent="globals/MeditateTimerView" pc="268436013" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="105" parent="globals/MeditateTimerView" pc="268436029" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="108" parent="globals/MeditateTimerView" pc="268436033" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="109" parent="globals/MeditateTimerView" pc="268436046" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="110" parent="globals/MeditateTimerView" pc="268436056" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="111" parent="globals/MeditateTimerView" pc="268436069" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="114" parent="globals/MeditateTimerView" pc="268436090" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="9" lineNum="115" parent="globals/MeditateTimerView" pc="268436102" symbol="onSecondTick"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="10" lineNum="50" parent="globals/MeditateTimerView" pc="268436119" symbol="onHide"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="10" lineNum="51" parent="globals/MeditateTimerView" pc="268436121" symbol="onHide"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="10" lineNum="52" parent="globals/MeditateTimerView" pc="268436134" symbol="onHide"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="10" lineNum="55" parent="globals/MeditateTimerView" pc="268436155" symbol="onHide"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="10" lineNum="56" parent="globals/MeditateTimerView" pc="268436168" symbol="onHide"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="10" lineNum="59" parent="globals/MeditateTimerView" pc="268436189" symbol="onHide"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="11" lineNum="138" parent="globals/MeditateTimerView" pc="268436202" symbol="stopRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="11" lineNum="139" parent="globals/MeditateTimerView" pc="268436206" symbol="stopRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="11" lineNum="140" parent="globals/MeditateTimerView" pc="268436218" symbol="stopRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="11" lineNum="141" parent="globals/MeditateTimerView" pc="268436228" symbol="stopRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="11" lineNum="145" parent="globals/MeditateTimerView" pc="268436232" symbol="stopRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="11" lineNum="146" parent="globals/MeditateTimerView" pc="268436250" symbol="stopRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="11" lineNum="147" parent="globals/MeditateTimerView" pc="268436274" symbol="stopRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="11" lineNum="150" parent="globals/MeditateTimerView" pc="268436290" symbol="stopRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="11" lineNum="151" parent="globals/MeditateTimerView" pc="268436299" symbol="stopRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="12" lineNum="38" parent="globals/MeditateTimerView" pc="268436310" symbol="onShow"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="12" lineNum="39" parent="globals/MeditateTimerView" pc="268436312" symbol="onShow"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="12" lineNum="40" parent="globals/MeditateTimerView" pc="268436325" symbol="onShow"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="12" lineNum="41" parent="globals/MeditateTimerView" pc="268436350" symbol="onShow"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="12" lineNum="43" parent="globals/MeditateTimerView" pc="268436360" symbol="onShow"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="12" lineNum="44" parent="globals/MeditateTimerView" pc="268436372" symbol="onShow"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="12" lineNum="46" parent="globals/MeditateTimerView" pc="268436384" symbol="onShow"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="12" lineNum="47" parent="globals/MeditateTimerView" pc="268436418" symbol="onShow"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="13" lineNum="167" parent="globals/MeditateTimerView" pc="268436460" symbol="formatMetricValue"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="13" lineNum="168" parent="globals/MeditateTimerView" pc="268436462" symbol="formatMetricValue"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="13" lineNum="169" parent="globals/MeditateTimerView" pc="268436468" symbol="formatMetricValue"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="13" lineNum="172" parent="globals/MeditateTimerView" pc="268436477" symbol="formatMetricValue"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="14" lineNum="198" parent="globals/MeditateTimerView" pc="268436494" symbol="formatTime"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="14" lineNum="199" parent="globals/MeditateTimerView" pc="268436498" symbol="formatTime"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="14" lineNum="200" parent="globals/MeditateTimerView" pc="268436517" symbol="formatTime"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="14" lineNum="201" parent="globals/MeditateTimerView" pc="268436536" symbol="formatTime"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="15" lineNum="175" parent="globals/MeditateTimerView" pc="268436576" symbol="startSilentVibrationCue"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="15" lineNum="176" parent="globals/MeditateTimerView" pc="268436578" symbol="startSilentVibrationCue"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="15" lineNum="178" parent="globals/MeditateTimerView" pc="268436591" symbol="startSilentVibrationCue"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="15" lineNum="179" parent="globals/MeditateTimerView" pc="268436604" symbol="startSilentVibrationCue"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="15" lineNum="182" parent="globals/MeditateTimerView" pc="268436625" symbol="startSilentVibrationCue"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="15" lineNum="183" parent="globals/MeditateTimerView" pc="268436659" symbol="startSilentVibrationCue"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="16" lineNum="118" parent="globals/MeditateTimerView" pc="268436701" symbol="startRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="16" lineNum="119" parent="globals/MeditateTimerView" pc="268436705" symbol="startRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="16" lineNum="120" parent="globals/MeditateTimerView" pc="268436715" symbol="startRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="16" lineNum="123" parent="globals/MeditateTimerView" pc="268436724" symbol="startRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="16" lineNum="128" parent="globals/MeditateTimerView" pc="268436779" symbol="startRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="16" lineNum="129" parent="globals/MeditateTimerView" pc="268436792" symbol="startRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="16" lineNum="130" parent="globals/MeditateTimerView" pc="268436810" symbol="startRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="16" lineNum="132" parent="globals/MeditateTimerView" pc="268436829" symbol="startRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="16" lineNum="133" parent="globals/MeditateTimerView" pc="268436833" symbol="startRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="16" lineNum="134" parent="globals/MeditateTimerView" pc="268436842" symbol="startRecording"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="17" lineNum="34" parent="globals/MeditateTimerView" pc="268436865" symbol="initialize"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="17" lineNum="35" parent="globals/MeditateTimerView" pc="268436867" symbol="initialize"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="18" lineNum="62" parent="globals/MeditateTimerView" pc="268436886" symbol="onUpdate"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="18" lineNum="63" parent="globals/MeditateTimerView" pc="268436890" symbol="onUpdate"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="18" lineNum="65" parent="globals/MeditateTimerView" pc="268436902" symbol="onUpdate"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="18" lineNum="66" parent="globals/MeditateTimerView" pc="268436915" symbol="onUpdate"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="18" lineNum="68" parent="globals/MeditateTimerView" pc="268436928" symbol="onUpdate"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="18" lineNum="70" parent="globals/MeditateTimerView" pc="268436950" symbol="onUpdate"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="18" lineNum="71" parent="globals/MeditateTimerView" pc="268436994" symbol="onUpdate"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="18" lineNum="73" parent="globals/MeditateTimerView" pc="268437031" symbol="onUpdate"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="18" lineNum="74" parent="globals/MeditateTimerView" pc="268437052" symbol="onUpdate"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="18" lineNum="76" parent="globals/MeditateTimerView" pc="268437089" symbol="onUpdate"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="18" lineNum="77" parent="globals/MeditateTimerView" pc="268437131" symbol="onUpdate"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="18" lineNum="79" parent="globals/MeditateTimerView" pc="268437168" symbol="onUpdate"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="18" lineNum="80" parent="globals/MeditateTimerView" pc="268437194" symbol="onUpdate"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="18" lineNum="82" parent="globals/MeditateTimerView" pc="268437234" symbol="onUpdate"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="18" lineNum="83" parent="globals/MeditateTimerView" pc="268437280" symbol="onUpdate"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="19" lineNum="154" parent="globals/MeditateTimerView" pc="268437321" symbol="refreshWellnessMetrics"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="19" lineNum="156" parent="globals/MeditateTimerView" pc="268437325" symbol="refreshWellnessMetrics"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="19" lineNum="157" parent="globals/MeditateTimerView" pc="268437342" symbol="refreshWellnessMetrics"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="19" lineNum="160" parent="globals/MeditateTimerView" pc="268437375" symbol="refreshWellnessMetrics"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="19" lineNum="161" parent="globals/MeditateTimerView" pc="268437379" symbol="refreshWellnessMetrics"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="19" lineNum="162" parent="globals/MeditateTimerView" pc="268437392" symbol="refreshWellnessMetrics"/>
+        <entry filename="C:\\Source\\garmin-meditate\\source\\MeditateTimerView.mc" id="19" lineNum="163" parent="globals/MeditateTimerView" pc="268437405" symbol="refreshWellnessMetrics"/>
+    </pcToLineNum>
+    <symbolTable>
+        <entry id="8388639" module="true" symbol="Graphics"/>
+        <entry field="true" id="13" symbol="_recordingActive"/>
+        <entry field="true" id="9" symbol="_heartRateText"/>
+        <entry id="8388632" method="true" symbol="&lt;init&gt;"/>
+        <entry id="27" method="true" symbol="stopRecording"/>
+        <entry id="25" method="true" symbol="startRecording"/>
+        <entry id="8388638" module="true" symbol="ActivityRecording"/>
+        <entry field="true" id="8388890" symbol="sport"/>
+        <entry field="true" id="8" symbol="_completed"/>
+        <entry field="true" id="7" symbol="_bodyBatteryText"/>
+        <entry field="true" id="11" symbol="_phaseIndex"/>
+        <entry field="true" id="8388611" module="true" symbol="Toybox"/>
+        <entry field="true" id="29" symbol="AppName"/>
+        <entry id="8388633" module="true" symbol="ActivityMonitor"/>
+        <entry id="4" module="true" symbol="globals/Rez/Strings"/>
+        <entry id="21" method="true" symbol="formatTime"/>
+        <entry id="8388631" module="true" symbol="Activity"/>
+        <entry id="8388648" module="true" symbol="WatchUi"/>
+        <entry field="true" id="14" symbol="_recordingSession"/>
+        <entry id="2" module="true" symbol="globals/Rez"/>
+        <entry id="8389124" method="true" symbol="onUpdate"/>
+        <entry id="8388771" module="true" object="true" symbol="Drawables"/>
+        <entry field="true" id="10" symbol="_phaseDurations"/>
+        <entry field="true" id="16" symbol="_stressText"/>
+        <entry id="24" method="true" symbol="sendVibePulse"/>
+        <entry id="3" module="true" symbol="globals/Rez/Drawables"/>
+        <entry id="5" object="true" symbol="MeditateTimerApp"/>
+        <entry field="true" id="15" symbol="_remainingSeconds"/>
+        <entry id="8388769" module="true" object="true" symbol="Rez"/>
+        <entry id="8388640" module="true" symbol="Lang"/>
+        <entry id="20" method="true" symbol="formatMetricValue"/>
+        <entry id="8388610" symbol="statics"/>
+        <entry id="8389123" method="true" symbol="onShow"/>
+        <entry id="8389350" module="true" symbol="globals"/>
+        <entry id="8388770" module="true" object="true" symbol="Strings"/>
+        <entry field="true" id="17" symbol="_tickTimer"/>
+        <entry id="8388702" method="true" symbol="initialize"/>
+        <entry id="8389279" method="true" symbol="onStart"/>
+        <entry field="true" id="12" symbol="_phaseOrder"/>
+        <entry field="true" id="8388892" symbol="name"/>
+        <entry id="8389280" method="true" symbol="getInitialView"/>
+        <entry id="8389281" method="true" symbol="onStop"/>
+        <entry id="22" method="true" symbol="onSecondTick"/>
+        <entry field="true" id="19" symbol="_vibeTimer"/>
+        <entry field="true" id="28" symbol="tmicon"/>
+        <entry id="8388646" module="true" object="true" symbol="Timer"/>
+        <entry field="true" id="18" symbol="_vibePulsesRemaining"/>
+        <entry id="6" object="true" symbol="MeditateTimerView"/>
+        <entry id="8388636" module="true" symbol="Attention"/>
+        <entry id="23" method="true" symbol="refreshWellnessMetrics"/>
+        <entry id="26" method="true" symbol="startSilentVibrationCue"/>
+        <entry id="8389125" method="true" symbol="onHide"/>
+        <entry id="8388635" module="true" symbol="Application"/>
+    </symbolTable>
+    <localVars>
+        <entry endPc="268436284" name="e" stackId="1" startPc="268436274"/>
+        <entry arg="true" endPc="268436493" name="metric" stackId="1" startPc="268436460"/>
+        <entry arg="true" endPc="268436575" name="totalSeconds" stackId="1" startPc="268436494"/>
+        <entry endPc="268436575" name="minutes" stackId="2" startPc="268436498"/>
+        <entry endPc="268436575" name="seconds" stackId="3" startPc="268436498"/>
+        <entry endPc="268436858" name="e" stackId="1" startPc="268436829"/>
+        <entry arg="true" endPc="268437320" name="dc" stackId="1" startPc="268436886"/>
+        <entry endPc="268437319" name="width" stackId="2" startPc="268436890"/>
+        <entry endPc="268437319" name="height" stackId="3" startPc="268436890"/>
+        <entry endPc="268437319" name="phaseLabel" stackId="4" startPc="268436890"/>
+        <entry endPc="268437319" name="minuteText" stackId="5" startPc="268436890"/>
+        <entry endPc="268437319" name="progress" stackId="6" startPc="268436890"/>
+        <entry endPc="268437319" name="recordingStatus" stackId="7" startPc="268436890"/>
+        <entry endPc="268437319" name="wellnessLine" stackId="8" startPc="268436890"/>
+        <entry endPc="268437368" name="info" stackId="1" startPc="268437325"/>
+        <entry endPc="268437424" name="e" stackId="2" startPc="268437375"/>
+    </localVars>
+    <deviceInfo deviceVersion="8fc30743a4191ec19bcafa28e3ffcc2b5a958a17" partNumber="006-B3076-00"/>
+    <annotations>
+        <annotationEntry annotation="initialized" class="Drawables" module="globals/Rez" symbol="tmicon"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="AppName"/>
+    </annotations>
+    <dataEntryOffsetMappings>
+        <dataEntry label="globals" offset="55" parentId="" symbolId="globals" type="module"/>
+        <dataEntry label="globals/MeditateTimerApp" offset="118" parentId="globals" symbolId="MeditateTimerApp" type="class"/>
+        <dataEntry label="globals/MeditateTimerView" offset="189" parentId="globals" symbolId="MeditateTimerView" type="class"/>
+        <dataEntry label="globals/Rez" offset="428" parentId="globals" symbolId="Rez" type="module"/>
+        <dataEntry label="globals/Rez/Drawables" offset="475" parentId="Rez" symbolId="Drawables" type="module"/>
+        <dataEntry label="globals/Rez/Strings" offset="514" parentId="Rez" symbolId="Strings" type="module"/>
+    </dataEntryOffsetMappings>
+    <functions>
+        <functionEntry accessMode="public" endPc="268435478" name="&lt;init&gt;" parent="MeditateTimerApp" startPc="268435460">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435603" name="&lt;init&gt;" parent="MeditateTimerView" startPc="268435479">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435627" name="&lt;init&gt;" parent="Rez" startPc="268435604">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435630" name="onStart" parent="MeditateTimerApp" startPc="268435628">
+            <param id="a"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435669" name="getInitialView" parent="MeditateTimerApp" startPc="268435631">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435690" name="initialize" parent="MeditateTimerApp" startPc="268435670">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435693" name="onStop" parent="MeditateTimerApp" startPc="268435691">
+            <param id="a"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435836" name="sendVibePulse" parent="MeditateTimerView" startPc="268435694">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436118" name="onSecondTick" parent="MeditateTimerView" startPc="268435837">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436201" name="onHide" parent="MeditateTimerView" startPc="268436119">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436309" name="stopRecording" parent="MeditateTimerView" startPc="268436202">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436459" name="onShow" parent="MeditateTimerView" startPc="268436310">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436493" name="formatMetricValue" parent="MeditateTimerView" startPc="268436460">
+            <param id="metric"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436575" name="formatTime" parent="MeditateTimerView" startPc="268436494">
+            <param id="totalSeconds"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436700" name="startSilentVibrationCue" parent="MeditateTimerView" startPc="268436576">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436864" name="startRecording" parent="MeditateTimerView" startPc="268436701">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436885" name="initialize" parent="MeditateTimerView" startPc="268436865">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437320" name="onUpdate" parent="MeditateTimerView" startPc="268436886">
+            <param id="dc"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437430" name="refreshWellnessMetrics" parent="MeditateTimerView" startPc="268437321">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Drawables">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Strings">
+            <documentation/>
+        </functionEntry>
+    </functions>
+</debugInfo>

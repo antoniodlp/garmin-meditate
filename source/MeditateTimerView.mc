@@ -13,23 +13,23 @@ class MeditateTimerView extends WatchUi.View {
     const MEDITATE_DURATION_SEC = 20 * 60;
     const RETURN_DURATION_SEC = 3 * 60;
 
-    var _phaseOrder as Array<String> = ["Prepare", "Meditate", "Return"];
-    var _phaseDurations as Array<Number> = [PREP_DURATION_SEC, MEDITATE_DURATION_SEC, RETURN_DURATION_SEC];
+    var _phaseOrder = ["Prepare", "Meditate", "Return"];
+    var _phaseDurations = [PREP_DURATION_SEC, MEDITATE_DURATION_SEC, RETURN_DURATION_SEC];
 
-    var _phaseIndex as Number = 0;
-    var _remainingSeconds as Number = PREP_DURATION_SEC;
+    var _phaseIndex = 0;
+    var _remainingSeconds  = PREP_DURATION_SEC;
 
     var _tickTimer as Timer.Timer?;
     var _vibeTimer as Timer.Timer?;
-    var _vibePulsesRemaining as Number = 0;
-    var _completed as Boolean = false;
+    var _vibePulsesRemaining  = 0;
+    var _completed = false;
 
     var _recordingSession as ActivityRecording.Session?;
-    var _recordingActive as Boolean = false;
+    var _recordingActive = false;
 
-    var _heartRateText as String = "--";
-    var _stressText as String = "--";
-    var _bodyBatteryText as String = "--";
+    var _heartRateText = "--";
+    var _stressText = "--";
+    var _bodyBatteryText = "--";
 
     function initialize() {
         View.initialize();
@@ -153,10 +153,10 @@ class MeditateTimerView extends WatchUi.View {
 
     function refreshWellnessMetrics() as Void {
         try {
-            var info = ActivityMonitor.getInfo();
+            var info = Activity.getActivityInfo();
             _heartRateText = formatMetricValue(info.currentHeartRate);
-            _stressText = formatMetricValue(info.stressScore);
-            _bodyBatteryText = formatMetricValue(info.bodyBattery);
+            //_stressText = formatMetricValue(info.stressScore);
+            //_bodyBatteryText = formatMetricValue(info.bodyBattery);
         } catch (e) {
             _heartRateText = "--";
             _stressText = "--";
@@ -164,7 +164,7 @@ class MeditateTimerView extends WatchUi.View {
         }
     }
 
-    function formatMetricValue(metric as Number?) as String {
+    function formatMetricValue(metric) {
         if (metric == null) {
             return "--";
         }
@@ -191,11 +191,11 @@ class MeditateTimerView extends WatchUi.View {
             return;
         }
 
-        Attention.vibrate(new Attention.VibeProfile(80, 60));
+        Attention.vibrate([new Attention.VibeProfile(80, 60)]);
         _vibePulsesRemaining -= 1;
     }
 
-    function formatTime(totalSeconds as Number) as String {
+    function formatTime(totalSeconds) {
         var minutes = (totalSeconds / 60).toNumber();
         var seconds = (totalSeconds % 60).toNumber();
         return minutes.format("%02d") + ":" + seconds.format("%02d");

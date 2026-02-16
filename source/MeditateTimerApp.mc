@@ -7,13 +7,13 @@ class MeditateTimerApp extends Application.AppBase {
         AppBase.initialize();
     }
 
-    function onStart(state as Dictionary?) as Void {
+    function onStart(a) as Void {
     }
 
-    function onStop(state as Dictionary?) as Void {
+    function onStop(a) as Void {
     }
 
-    function getInitialView() as [Views] or [Views, InputDelegates] {
+    function getInitialView() {
         return [ new MeditateTimerView() ];
     }
 }
