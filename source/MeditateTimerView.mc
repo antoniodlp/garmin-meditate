@@ -98,19 +98,20 @@ class MeditateTimerView extends WatchUi.View {
     function drawSetupScreen(dc) {
         var width = dc.getWidth();
         var height = dc.getHeight();
-        var rowStart = 54;
-        var rowSpacing = 26;
+        var rowStart = 42;
+        var rowSpacing = 22;
 
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        dc.drawText(width / 2, 20, Graphics.FONT_MEDIUM, "Set Durations", Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(width / 2, 16, Graphics.FONT_SMALL, "Set Durations", Graphics.TEXT_JUSTIFY_CENTER);
 
         drawSetupRow(dc, width, rowStart + (rowSpacing * 0), "Prep", _setupDurationsMinutes[0], _setupSelection == 0);
         drawSetupRow(dc, width, rowStart + (rowSpacing * 1), "Meditate", _setupDurationsMinutes[1], _setupSelection == 1);
         drawSetupRow(dc, width, rowStart + (rowSpacing * 2), "Return", _setupDurationsMinutes[2], _setupSelection == 2);
         drawStartRow(dc, width, rowStart + (rowSpacing * 3), _setupSelection == 3);
 
-        dc.drawText(width / 2, height - 28, Graphics.FONT_XTINY, "Up/Down select  Select +1", Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(width / 2, height - 12, Graphics.FONT_XTINY, "Back -1  Select on Start", Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(width / 2, height - 34, Graphics.FONT_XTINY, "Up/Down: select", Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(width / 2, height - 20, Graphics.FONT_XTINY, "Select: +1 min", Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(width / 2, height - 10, Graphics.FONT_XTINY, "Back: -1 min", Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     function drawSetupRow(dc, width, y, label, minutes, selected) {
@@ -129,23 +130,59 @@ class MeditateTimerView extends WatchUi.View {
     function drawSessionScreen(dc) {
         var width = dc.getWidth();
         var height = dc.getHeight();
+        var centerX = width / 2;
 
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
 
         var phaseLabel = _completed ? "Complete" : (_phaseOrder[_phaseIndex] + " phase");
-        dc.drawText(width / 2, 34, Graphics.FONT_MEDIUM, phaseLabel, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(centerX, 24, Graphics.FONT_SMALL, phaseLabel, Graphics.TEXT_JUSTIFY_CENTER);
 
         var minuteText = formatTime(_remainingSeconds);
-        dc.drawText(width / 2, 74, Graphics.FONT_LARGE, minuteText, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(centerX, 64, Graphics.FONT_LARGE, minuteText, Graphics.TEXT_JUSTIFY_CENTER);
+
+        drawPhaseProgressBar(dc, width, 94);
 
         var progress = "Step " + (_phaseIndex + 1).format("%d") + " / 3";
-        dc.drawText(width / 2, 114, Graphics.FONT_XTINY, progress, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(centerX, 112, Graphics.FONT_XTINY, progress, Graphics.TEXT_JUSTIFY_CENTER);
 
-        var recordingStatus = _recordingActive ? "Recording: on" : "Recording: off";
-        dc.drawText(width / 2, height - 56, Graphics.FONT_XTINY, recordingStatus, Graphics.TEXT_JUSTIFY_CENTER);
+        var recordingStatus = _recordingActive ? "REC on" : "REC off";
+        dc.drawText(centerX, height - 46, Graphics.FONT_XTINY, recordingStatus, Graphics.TEXT_JUSTIFY_CENTER);
 
-        var wellnessLine = "HR " + _heartRateText + "  Stress " + _stressText + "  BB " + _bodyBatteryText;
-        dc.drawText(width / 2, height - 26, Graphics.FONT_XTINY, wellnessLine, Graphics.TEXT_JUSTIFY_CENTER);
+        var wellnessLineA = "HR " + _heartRateText + "  ST " + _stressText;
+        var wellnessLineB = "BB " + _bodyBatteryText;
+        dc.drawText(centerX, height - 30, Graphics.FONT_XTINY, wellnessLineA, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(centerX, height - 14, Graphics.FONT_XTINY, wellnessLineB, Graphics.TEXT_JUSTIFY_CENTER);
+    }
+
+    function drawPhaseProgressBar(dc, width, y) {
+        var barWidth = width - 32;
+        var barHeight = 8;
+        var x = 16;
+        var maxFillWidth = barWidth - 2;
+
+        var progressRatio = 0.0;
+        if (_completed) {
+            progressRatio = 1.0;
+        } else {
+            var phaseDuration = _phaseDurations[_phaseIndex];
+            if (phaseDuration > 0) {
+                progressRatio = (phaseDuration - _remainingSeconds).toFloat() / phaseDuration.toFloat();
+            }
+        }
+
+        if (progressRatio < 0.0) {
+            progressRatio = 0.0;
+        }
+        if (progressRatio > 1.0) {
+            progressRatio = 1.0;
+        }
+
+        var fillWidth = (maxFillWidth * progressRatio).toNumber();
+
+        dc.drawRectangle(x, y, barWidth, barHeight);
+        if (fillWidth > 0) {
+            dc.fillRectangle(x + 1, y + 1, fillWidth, barHeight - 2);
+        }
     }
 
     function isSetupMode() {
