@@ -36,9 +36,14 @@ class MeditateTimerView extends WatchUi.View {
     var _heartRateText = "--";
     var _stressText = "--";
     var _bodyBatteryText = "--";
+    var _activeLayoutId = "";
 
     function initialize() {
         View.initialize();
+    }
+
+    function onLayout(dc) {
+        applySetupLayout(dc);
     }
 
     function onShow() {
@@ -51,18 +56,24 @@ class MeditateTimerView extends WatchUi.View {
     }
 
     function onUpdate(dc) {
-        dc.clear();
-
         if (_isSetupMode) {
-            drawSetupScreen(dc);
-            return;
+            applySetupLayout(dc);
+            updateSetupLayoutText();
+        } else {
+            applySessionLayout(dc);
+            updateSessionLayoutText();
         }
 
-        drawSessionScreen(dc);
+        View.onUpdate(dc);
+
+        if (!_isSetupMode) {
+            drawPhaseProgressBar(dc, dc.getWidth(), 94);
+        }
     }
 
     function resetSetupDefaults() {
         stopTimers();
+        _activeLayoutId = "";
 
         _setupDurationsMinutes = [1, 20, 3];
         _setupSelection = 0;
@@ -95,63 +106,57 @@ class MeditateTimerView extends WatchUi.View {
         }
     }
 
-    function drawSetupScreen(dc) {
-        var width = dc.getWidth();
-        var height = dc.getHeight();
-        var rowStart = 42;
-        var rowSpacing = 22;
+    function applySetupLayout(dc) {
+        if (_activeLayoutId == "setup") {
+            return;
+        }
 
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        dc.drawText(width / 2, 16, Graphics.FONT_SMALL, "Set Durations", Graphics.TEXT_JUSTIFY_CENTER);
-
-        drawSetupRow(dc, width, rowStart + (rowSpacing * 0), "Prep", _setupDurationsMinutes[0], _setupSelection == 0);
-        drawSetupRow(dc, width, rowStart + (rowSpacing * 1), "Meditate", _setupDurationsMinutes[1], _setupSelection == 1);
-        drawSetupRow(dc, width, rowStart + (rowSpacing * 2), "Return", _setupDurationsMinutes[2], _setupSelection == 2);
-        drawStartRow(dc, width, rowStart + (rowSpacing * 3), _setupSelection == 3);
-
-        dc.drawText(width / 2, height - 34, Graphics.FONT_XTINY, "Up/Down: select", Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(width / 2, height - 20, Graphics.FONT_XTINY, "Select: +1 min", Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(width / 2, height - 10, Graphics.FONT_XTINY, "Back: -1 min", Graphics.TEXT_JUSTIFY_CENTER);
+        setLayout(Rez.Layouts.SetupLayout(dc));
+        _activeLayoutId = "setup";
     }
 
-    function drawSetupRow(dc, width, y, label, minutes, selected) {
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+    function applySessionLayout(dc) {
+        if (_activeLayoutId == "session") {
+            return;
+        }
+
+        setLayout(Rez.Layouts.SessionLayout(dc));
+        _activeLayoutId = "session";
+    }
+
+    function updateSetupLayoutText() {
+        setLayoutLabel("prepRow", formatSetupRowText("Prep", _setupDurationsMinutes[0], _setupSelection == 0));
+        setLayoutLabel("meditateRow", formatSetupRowText("Meditate", _setupDurationsMinutes[1], _setupSelection == 1));
+        setLayoutLabel("returnRow", formatSetupRowText("Return", _setupDurationsMinutes[2], _setupSelection == 2));
+        setLayoutLabel("startRow", _setupSelection == 3 ? "> [ Start ]" : "  [ Start ]");
+    }
+
+    function formatSetupRowText(label, minutes, selected) {
         var prefix = selected ? "> " : "  ";
-        var text = prefix + label + ": " + minutes.format("%d") + " min";
-        dc.drawText(width / 2, y, Graphics.FONT_SMALL, text, Graphics.TEXT_JUSTIFY_CENTER);
+        return prefix + label + ": " + minutes.format("%d") + " min";
     }
 
-    function drawStartRow(dc, width, y, selected) {
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        var text = selected ? "> [ Start ]" : "  [ Start ]";
-        dc.drawText(width / 2, y, Graphics.FONT_SMALL, text, Graphics.TEXT_JUSTIFY_CENTER);
-    }
-
-    function drawSessionScreen(dc) {
-        var width = dc.getWidth();
-        var height = dc.getHeight();
-        var centerX = width / 2;
-
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-
+    function updateSessionLayoutText() {
         var phaseLabel = _completed ? "Complete" : (_phaseOrder[_phaseIndex] + " phase");
-        dc.drawText(centerX, 24, Graphics.FONT_SMALL, phaseLabel, Graphics.TEXT_JUSTIFY_CENTER);
-
         var minuteText = formatTime(_remainingSeconds);
-        dc.drawText(centerX, 64, Graphics.FONT_LARGE, minuteText, Graphics.TEXT_JUSTIFY_CENTER);
-
-        drawPhaseProgressBar(dc, width, 94);
-
         var progress = "Step " + (_phaseIndex + 1).format("%d") + " / 3";
-        dc.drawText(centerX, 112, Graphics.FONT_XTINY, progress, Graphics.TEXT_JUSTIFY_CENTER);
-
         var recordingStatus = _recordingActive ? "REC on" : "REC off";
-        dc.drawText(centerX, height - 46, Graphics.FONT_XTINY, recordingStatus, Graphics.TEXT_JUSTIFY_CENTER);
-
         var wellnessLineA = "HR " + _heartRateText + "  ST " + _stressText;
         var wellnessLineB = "BB " + _bodyBatteryText;
-        dc.drawText(centerX, height - 30, Graphics.FONT_XTINY, wellnessLineA, Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(centerX, height - 14, Graphics.FONT_XTINY, wellnessLineB, Graphics.TEXT_JUSTIFY_CENTER);
+
+        setLayoutLabel("phaseLabel", phaseLabel);
+        setLayoutLabel("timerLabel", minuteText);
+        setLayoutLabel("progressLabel", progress);
+        setLayoutLabel("recordingLabel", recordingStatus);
+        setLayoutLabel("wellnessLineA", wellnessLineA);
+        setLayoutLabel("wellnessLineB", wellnessLineB);
+    }
+
+    function setLayoutLabel(id, text) {
+        var drawable = findDrawableById(id);
+        if (drawable != null && drawable instanceof WatchUi.Text) {
+            (drawable as WatchUi.Text).setText(text);
+        }
     }
 
     function drawPhaseProgressBar(dc, width, y) {
@@ -263,6 +268,7 @@ class MeditateTimerView extends WatchUi.View {
         ];
 
         _isSetupMode = false;
+        _activeLayoutId = "";
         _phaseIndex = 0;
         _remainingSeconds = _phaseDurations[0];
         _completed = false;
