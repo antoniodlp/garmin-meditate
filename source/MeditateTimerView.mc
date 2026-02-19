@@ -320,7 +320,11 @@ class MeditateTimerView extends WatchUi.View {
         try {
             _recordingSession = ActivityRecording.createSession({
                 :name => "Meditation",
-                :sport => Activity.SPORT_GENERIC
+                :sport => Activity.SPORT_MEDITATION,
+                 :metrics => [
+                    ActivityRecording.METRIC_HEART_RATE,
+                    ActivityRecording.METRIC_STRESS_SCORE
+                ]
             });
 
             if (_recordingSession != null) {
@@ -371,26 +375,11 @@ class MeditateTimerView extends WatchUi.View {
     }
 
     function startSilentVibrationCue() {
-        _vibePulsesRemaining = 12;
-
-        if (_vibeTimer != null) {
-            _vibeTimer.stop();
-        }
-
-        _vibeTimer = new Timer.Timer();
-        _vibeTimer.start(method(:sendVibePulse) as Method() as Void, 250, true);
-    }
-
-    function sendVibePulse() {
-        if (_vibePulsesRemaining <= 0) {
-            if (_vibeTimer != null) {
-                _vibeTimer.stop();
-            }
-            return;
-        }
-
-        Attention.vibrate([new Attention.VibeProfile(80, 60)]);
-        _vibePulsesRemaining -= 1;
+        Attention.vibrate([
+            new Attention.VibeProfile(15, 3000),
+            new Attention.VibeProfile(25, 2000),
+            new Attention.VibeProfile(50, 1000),
+        ]);
     }
 
     function formatTime(totalSeconds) {
