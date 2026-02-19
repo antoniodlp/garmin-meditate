@@ -320,11 +320,7 @@ class MeditateTimerView extends WatchUi.View {
         try {
             _recordingSession = ActivityRecording.createSession({
                 :name => "Meditation",
-                :sport => Activity.SPORT_MEDITATION,
-                 :metrics => [
-                    ActivityRecording.METRIC_HEART_RATE,
-                    ActivityRecording.METRIC_STRESS_SCORE
-                ]
+                :sport => Activity.SPORT_MEDITATION
             });
 
             if (_recordingSession != null) {
