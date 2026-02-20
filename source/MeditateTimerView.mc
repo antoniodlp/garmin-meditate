@@ -34,8 +34,6 @@ class MeditateTimerView extends WatchUi.View {
     var _recordingActive = false;
 
     var _heartRateText = "--";
-    var _stressText = "--";
-    var _bodyBatteryText = "--";
     var _activeLayoutId = "";
 
     function initialize() {
@@ -67,7 +65,7 @@ class MeditateTimerView extends WatchUi.View {
         View.onUpdate(dc);
 
         if (!_isSetupMode) {
-            drawPhaseProgressBar(dc, dc.getWidth(), 94);
+            drawPhaseProgressBar(dc, dc.getWidth(), (dc.getHeight() / 2) + 20);
         }
     }
 
@@ -88,8 +86,6 @@ class MeditateTimerView extends WatchUi.View {
         _remainingSeconds = _phaseDurations[0];
         _completed = false;
         _heartRateText = "--";
-        _stressText = "--";
-        _bodyBatteryText = "--";
 
         WatchUi.requestUpdate();
     }
@@ -141,15 +137,13 @@ class MeditateTimerView extends WatchUi.View {
         var minuteText = formatTime(_remainingSeconds);
         var progress = "Step " + (_phaseIndex + 1).format("%d") + " / 3";
         var recordingStatus = _recordingActive ? "REC on" : "REC off";
-        var wellnessLineA = "HR " + _heartRateText + "  ST " + _stressText;
-        var wellnessLineB = "BB " + _bodyBatteryText;
+        var wellnessLineA = "HR " + _heartRateText;
 
         setLayoutLabel("phaseLabel", phaseLabel);
         setLayoutLabel("timerLabel", minuteText);
         setLayoutLabel("progressLabel", progress);
         setLayoutLabel("recordingLabel", recordingStatus);
         setLayoutLabel("wellnessLineA", wellnessLineA);
-        setLayoutLabel("wellnessLineB", wellnessLineB);
     }
 
     function setLayoutLabel(id, text) {
@@ -160,9 +154,9 @@ class MeditateTimerView extends WatchUi.View {
     }
 
     function drawPhaseProgressBar(dc, width, y) {
-        var barWidth = width - 32;
+        var barWidth = width - 64;
         var barHeight = 8;
-        var x = 16;
+        var x = 32;
         var maxFillWidth = barWidth - 2;
 
         var progressRatio = 0.0;
@@ -184,9 +178,9 @@ class MeditateTimerView extends WatchUi.View {
 
         var fillWidth = (maxFillWidth * progressRatio).toNumber();
 
-        dc.drawRectangle(x, y, barWidth, barHeight);
+        dc.drawRoundedRectangle(x, y, barWidth, barHeight, 5);
         if (fillWidth > 0) {
-            dc.fillRectangle(x + 1, y + 1, fillWidth, barHeight - 2);
+            dc.fillRoundedRectangle(x + 1, y + 1, fillWidth, barHeight - 2, 5);
         }
     }
 
@@ -320,7 +314,8 @@ class MeditateTimerView extends WatchUi.View {
         try {
             _recordingSession = ActivityRecording.createSession({
                 :name => "Meditation",
-                :sport => Activity.SPORT_MEDITATION
+                :sport => Activity.SPORT_MEDITATION,
+
             });
 
             if (_recordingSession != null) {
@@ -353,12 +348,8 @@ class MeditateTimerView extends WatchUi.View {
         try {
             var info = Activity.getActivityInfo();
             _heartRateText = formatMetricValue(info.currentHeartRate);
-            //_stressText = formatMetricValue(info.stressScore);
-            //_bodyBatteryText = formatMetricValue(info.bodyBattery);
         } catch (e) {
             _heartRateText = "--";
-            _stressText = "--";
-            _bodyBatteryText = "--";
         }
     }
 
@@ -372,9 +363,19 @@ class MeditateTimerView extends WatchUi.View {
 
     function startSilentVibrationCue() {
         Attention.vibrate([
-            new Attention.VibeProfile(15, 3000),
-            new Attention.VibeProfile(25, 2000),
-            new Attention.VibeProfile(50, 1000),
+            new Attention.VibeProfile(15, 500),
+            new Attention.VibeProfile(25, 500),
+            new Attention.VibeProfile(50, 500)
+        ]);
+        Attention.vibrate([
+            new Attention.VibeProfile(15, 500),
+            new Attention.VibeProfile(25, 500),
+            new Attention.VibeProfile(50, 500)
+        ]);
+        Attention.vibrate([
+            new Attention.VibeProfile(15, 500),
+            new Attention.VibeProfile(25, 500),
+            new Attention.VibeProfile(50, 500)
         ]);
     }
 

@@ -1,0 +1,6 @@
+<menu2 title="Meditate" id="meditateMenu">
+      <menu-item id="prepItem" label="1 minute" subLabel="Prep"></menu-item>
+      <menu-item id="meditateItem" label="20 minutes" subLabel="Meditate"></menu-item>
+      <menu-item id="returnItem" label="3 minutes" subLabel="Return"></menu-item>
+      <menu-item id="startItem" label="Start"></menu-item>
+</menu2>
