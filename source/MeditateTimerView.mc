@@ -15,7 +15,7 @@ class MeditateTimerView extends WatchUi.View {
     const MIN_DURATION_MINUTES = 1;
     const MAX_DURATION_MINUTES = 180;
 
-    var _phaseOrder = ["Prepare", "Meditate", "Return"];
+    var _phaseOrder = [T(Rez.Strings.Preparation), T(Rez.Strings.Meditate), T(Rez.Strings.Return)];
     var _phaseDurations = [PREP_DURATION_SEC, MEDITATE_DURATION_SEC, RETURN_DURATION_SEC];
 
     var _setupDurationsMinutes = [1, 20, 3];
@@ -51,6 +51,10 @@ class MeditateTimerView extends WatchUi.View {
     function onHide() {
         stopTimers();
         stopRecording();
+    }
+
+    function T(identifier) {
+        return WatchUi.loadResource(identifier);
     }
 
     function onUpdate(dc) {
@@ -121,10 +125,10 @@ class MeditateTimerView extends WatchUi.View {
     }
 
     function updateSetupLayoutText() {
-        setLayoutLabel("prepRow", formatSetupRowText("Prep", _setupDurationsMinutes[0], _setupSelection == 0));
-        setLayoutLabel("meditateRow", formatSetupRowText("Meditate", _setupDurationsMinutes[1], _setupSelection == 1));
-        setLayoutLabel("returnRow", formatSetupRowText("Return", _setupDurationsMinutes[2], _setupSelection == 2));
-        setLayoutLabel("startRow", _setupSelection == 3 ? "> [ Start ]" : "  [ Start ]");
+        setLayoutLabel("prepRow", formatSetupRowText(T(Rez.Strings.Preparation), _setupDurationsMinutes[0], _setupSelection == 0));
+        setLayoutLabel("meditateRow", formatSetupRowText(T(Rez.Strings.Meditation), _setupDurationsMinutes[1], _setupSelection == 1));
+        setLayoutLabel("returnRow", formatSetupRowText(T(Rez.Strings.Return), _setupDurationsMinutes[2], _setupSelection == 2));
+        setLayoutLabel("startRow", _setupSelection == 3 ? "> " + T(Rez.Strings.Start) : "  " + T(Rez.Strings.Start));
     }
 
     function formatSetupRowText(label, minutes, selected) {
@@ -133,16 +137,14 @@ class MeditateTimerView extends WatchUi.View {
     }
 
     function updateSessionLayoutText() {
-        var phaseLabel = _completed ? "Complete" : (_phaseOrder[_phaseIndex] + " phase");
+        var phaseLabel = _completed ? T(Rez.Strings.Complete) : _phaseOrder[_phaseIndex];
         var minuteText = formatTime(_remainingSeconds);
-        var progress = "Step " + (_phaseIndex + 1).format("%d") + " / 3";
-        var recordingStatus = _recordingActive ? "REC on" : "REC off";
+        var progress = T(Rez.Strings.Step) + " " + (_phaseIndex + 1).format("%d") + " / 3";
         var wellnessLineA = "HR " + _heartRateText;
 
         setLayoutLabel("phaseLabel", phaseLabel);
         setLayoutLabel("timerLabel", minuteText);
         setLayoutLabel("progressLabel", progress);
-        setLayoutLabel("recordingLabel", recordingStatus);
         setLayoutLabel("wellnessLineA", wellnessLineA);
     }
 
@@ -178,6 +180,7 @@ class MeditateTimerView extends WatchUi.View {
 
         var fillWidth = (maxFillWidth * progressRatio).toNumber();
 
+        dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLUE);
         dc.drawRoundedRectangle(x, y, barWidth, barHeight, 5);
         if (fillWidth > 0) {
             dc.fillRoundedRectangle(x + 1, y + 1, fillWidth, barHeight - 2, 5);

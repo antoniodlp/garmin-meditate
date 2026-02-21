@@ -1,21 +1,19 @@
 <layouts>
     <layout id="SetupLayout">
-        <label id="setupTitle" x="50%" y="10%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_TINY" text="Meditate"/>
+        <label id="setupTitle" x="50%" y="10%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_TINY" text="@Strings.Meditate"/>
         <label id="prepRow" x="50%" y="25%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
         <label id="meditateRow" x="50%" y="35%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
         <label id="returnRow" x="50%" y="45%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
         <label id="startRow" x="50%" y="55%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
-        <label id="setupHelp1" x="50%" y="70%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SYSTEM_XTINY" text="Up/Down: select"/>
-        <label id="setupHelp2" x="50%" y="77%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SYSTEM_XTINY" text="Select: +1 min"/>
-        <label id="setupHelp3" x="50%" y="84%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SYSTEM_XTINY" text="Back: -1 min"/>
+        <label id="setupHelp1" x="50%" y="70%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SYSTEM_XTINY" text="@Strings.UpDown"/>
+        <label id="setupHelp2" x="50%" y="77%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SYSTEM_XTINY" text="@Strings.Select"/>
+        <label id="setupHelp3" x="50%" y="84%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SYSTEM_XTINY" text="@Strings.Back"/>
     </layout>
 
     <layout id="SessionLayout">
         <label id="phaseLabel" x="50%" y="15%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
         <label id="timerLabel" x="50%" y="32%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SYSTEM_NUMBER_MEDIUM" text=""/>
         <label id="progressLabel" x="50%" y="70%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_XTINY" text=""/>
-        
-        <label id="wellnessLineA" x="50%" y="80%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_XTINY" text=""/>
-        
+        <label id="wellnessLineA" x="50%" y="80%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_XTINY" text=""/>        
     </layout>
 </layouts>

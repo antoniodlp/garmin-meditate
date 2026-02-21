@@ -1,0 +1,14 @@
+<resources>
+    <string id="AppName">Meditación</string>
+    <string id="Meditate">Meditar</string>
+    <string id="UpDown">Arriba/Abajo: seleccionar</string>
+    <string id="Select">Seleccionar: +1 min</string>
+    <string id="Back">Atrás: -1 min</string>
+    <string id="Prep">Preparar</string>
+    <string id="Start">[ Iniciar ]</string>
+    <string id="Preparation">Preparación</string>
+    <string id="Meditation">Meditación</string>
+    <string id="Return">Regreso</string>
+    <string id="Step">Paso</string>
+    <string id="Complete">Completo</string>
+</resources>
