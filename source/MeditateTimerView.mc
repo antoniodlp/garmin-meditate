@@ -366,12 +366,11 @@ class MeditateTimerView extends WatchUi.View {
 
     function startSilentVibrationCue() {
         Attention.vibrate([
-            new Attention.VibeProfile(15, 1000),
-            new Attention.VibeProfile(25, 500),
-            new Attention.VibeProfile(35, 1000),
-            new Attention.VibeProfile(45, 500),
-            new Attention.VibeProfile(55, 1000),
-            new Attention.VibeProfile(65, 500),
+            new Attention.VibeProfile(15, 1500),
+            new Attention.VibeProfile(30, 1000),
+            new Attention.VibeProfile(60, 1000),
+            new Attention.VibeProfile(30, 1000),
+            new Attention.VibeProfile(15, 1500)
         ]);
     }
 
