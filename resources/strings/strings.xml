@@ -2,10 +2,9 @@
     <string id="AppName">Meditation</string>
     <string id="Meditate">Meditate</string>
     <string id="UpDown">Up/Down: select</string>
-    <string id="Select">Select: +1 min</string>
-    <string id="Back">Back: -1 min</string>
+    <string id="Select">Select/Back: +1/-1 min</string>
     <string id="Prep">Prepare</string>
-    <string id="Start">[ Start ]</string>
+    <string id="Start">[ Start / Exit ]</string>
     <string id="Preparation">Preparation</string>
     <string id="Meditation">Meditation</string>
     <string id="Return">Return</string>
