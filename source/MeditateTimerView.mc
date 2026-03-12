@@ -2,6 +2,7 @@ using Toybox.Activity;
 using Toybox.ActivityMonitor;
 using Toybox.ActivityRecording;
 using Toybox.Attention;
+using Toybox.Application;
 using Toybox.Graphics;
 using Toybox.Lang;
 using Toybox.Timer;
@@ -12,12 +13,14 @@ class MeditateTimerView extends WatchUi.View {
     const PREP_DURATION_SEC = 60;
     const MEDITATE_DURATION_SEC = 20 * 60;
     const RETURN_DURATION_SEC = 3 * 60;
-    const MIN_DURATION_MINUTES = 1;
+    const MIN_DURATION_MINUTES = 0;
     const MAX_DURATION_MINUTES = 180;
+    const SAVED_SETUP_DURATIONS_KEY = "setupDurationsMinutes";
 
     var _phaseOrder = [T(Rez.Strings.Preparation), T(Rez.Strings.Meditate), T(Rez.Strings.Return)];
     var _phaseDurations = [PREP_DURATION_SEC, MEDITATE_DURATION_SEC, RETURN_DURATION_SEC];
 
+    var _defaultSetupDurationsMinutes = [1, 20, 3];
     var _setupDurationsMinutes = [1, 20, 3];
     var _setupSelection = 0;
     var _isSetupMode = true;
@@ -77,7 +80,7 @@ class MeditateTimerView extends WatchUi.View {
         stopTimers();
         _activeLayoutId = "";
 
-        _setupDurationsMinutes = [1, 20, 3];
+        _setupDurationsMinutes = loadSavedSetupDurations();
         _setupSelection = 0;
         _isSetupMode = true;
 
@@ -258,6 +261,8 @@ class MeditateTimerView extends WatchUi.View {
     }
 
     function startMeditationSession() {
+        saveSetupDurations();
+
         _phaseDurations = [
             _setupDurationsMinutes[0] * 60,
             _setupDurationsMinutes[1] * 60,
@@ -272,10 +277,48 @@ class MeditateTimerView extends WatchUi.View {
 
         startRecording();
         refreshWellnessMetrics();
+        advancePastCompletedPhases(false);
 
-        _tickTimer = new Timer.Timer();
-        _tickTimer.start(method(:onSecondTick) as Method() as Void, 1000, true);
+        if (!_completed) {
+            _tickTimer = new Timer.Timer();
+            _tickTimer.start(method(:onSecondTick) as Method() as Void, 1000, true);
+        }
         WatchUi.requestUpdate();
+    }
+
+    function loadSavedSetupDurations() {
+        var savedDurations = Application.Storage.getValue(SAVED_SETUP_DURATIONS_KEY);
+        if (savedDurations == null || !(savedDurations instanceof Array) || savedDurations.size() != 3) {
+            return copySetupDurations(_defaultSetupDurationsMinutes);
+        }
+
+        var sanitizedDurations = [];
+        for (var i = 0; i < savedDurations.size(); i += 1) {
+            var duration = savedDurations[i];
+            if (!(duration instanceof Number)) {
+                return copySetupDurations(_defaultSetupDurationsMinutes);
+            }
+
+            var clampedDuration = duration;
+            if (clampedDuration < MIN_DURATION_MINUTES) {
+                clampedDuration = MIN_DURATION_MINUTES;
+            }
+            if (clampedDuration > MAX_DURATION_MINUTES) {
+                clampedDuration = MAX_DURATION_MINUTES;
+            }
+
+            sanitizedDurations.add(clampedDuration);
+        }
+
+        return sanitizedDurations;
+    }
+
+    function copySetupDurations(durations) {
+        return [durations[0], durations[1], durations[2]];
+    }
+
+    function saveSetupDurations() {
+        Application.Storage.setValue(SAVED_SETUP_DURATIONS_KEY, copySetupDurations(_setupDurationsMinutes));
     }
 
     function onSecondTick() {
@@ -291,23 +334,28 @@ class MeditateTimerView extends WatchUi.View {
             return;
         }
 
-        startSilentVibrationCue();
-
-        if (_phaseIndex < (_phaseOrder.size() - 1)) {
-            _phaseIndex += 1;
-            _remainingSeconds = _phaseDurations[_phaseIndex];
-            WatchUi.requestUpdate();
-            return;
-        }
-
-        _remainingSeconds = 0;
-        _completed = true;
-        if (_tickTimer != null) {
-            _tickTimer.stop();
-        }
-
-        stopRecording();
+        advancePastCompletedPhases(true);
         WatchUi.requestUpdate();
+    }
+
+    function advancePastCompletedPhases(shouldVibrate) {
+        while (!_completed && _remainingSeconds <= 0) {
+            if (shouldVibrate) {
+                startSilentVibrationCue();
+            }
+
+            if (_phaseIndex < (_phaseOrder.size() - 1)) {
+                _phaseIndex += 1;
+                _remainingSeconds = _phaseDurations[_phaseIndex];
+            } else {
+                _remainingSeconds = 0;
+                _completed = true;
+                if (_tickTimer != null) {
+                    _tickTimer.stop();
+                }
+                stopRecording();
+            }
+        }
     }
 
     function startRecording() {
@@ -368,7 +416,7 @@ class MeditateTimerView extends WatchUi.View {
         Attention.vibrate([
             new Attention.VibeProfile(15, 1500),
             new Attention.VibeProfile(30, 1000),
-            new Attention.VibeProfile(60, 1000),
+            new Attention.VibeProfile(50, 500),
             new Attention.VibeProfile(30, 1000),
             new Attention.VibeProfile(15, 1500)
         ]);
