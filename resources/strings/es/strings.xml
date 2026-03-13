@@ -10,4 +10,12 @@
     <string id="Return">Regreso</string>
     <string id="Step">Paso</string>
     <string id="Complete">Completo</string>
+    <string id="Paused">Pausado</string>
+    <string id="EndSession">Finalizar sesión</string>
+    <string id="SaveQuestion">¿Guardar o cancelar esta actividad?</string>
+    <string id="PauseQuestion">Pausado. ¿Continuar, guardar o cancelar?</string>
+    <string id="ContinueSession">Continuar</string>
+    <string id="FinishSave">Finalizar y guardar</string>
+    <string id="CancelActivity">Cancelar actividad</string>
+    <string id="ConfirmHelp">Seleccionar: confirmar, Atrás: volver</string>
 </resources>

@@ -15,4 +15,13 @@
         <label id="progressLabel" x="50%" y="70%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_XTINY" text=""/>
         <label id="wellnessLineA" x="50%" y="80%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_XTINY" text=""/>        
     </layout>
+
+    <layout id="ConfirmLayout">
+        <label id="confirmTitle" x="50%" y="12%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_BLUE" font="Graphics.FONT_SMALL" text=""/>
+        <label id="continueRow" x="50%" y="30%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
+        <label id="finishRow" x="50%" y="40%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
+        <label id="cancelRow" x="50%" y="50%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
+        <label id="confirmHelp1" x="50%" y="73%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SYSTEM_XTINY" text=""/>
+        <label id="confirmHelp2" x="50%" y="80%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SYSTEM_XTINY" text=""/>
+    </layout>
 </layouts>

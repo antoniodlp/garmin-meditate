@@ -5,6 +5,7 @@ using Toybox.Attention;
 using Toybox.Application;
 using Toybox.Graphics;
 using Toybox.Lang;
+using Toybox.System;
 using Toybox.Timer;
 using Toybox.WatchUi;
 
@@ -24,11 +25,16 @@ class MeditateTimerView extends WatchUi.View {
     var _setupDurationsMinutes = [1, 20, 3];
     var _setupSelection = 0;
     var _isSetupMode = true;
+    var _isConfirmMode = false;
+    var _isPaused = false;
+    var _confirmSelection = 0;
+    var _confirmHasContinue = false;
 
     var _phaseIndex = 0;
     var _remainingSeconds  = PREP_DURATION_SEC;
 
     var _tickTimer as Timer.Timer?;
+    var _pauseConfirmTimer as Timer.Timer?;
     var _vibeTimer as Timer.Timer?;
     var _vibePulsesRemaining  = 0;
     var _completed = false;
@@ -53,7 +59,7 @@ class MeditateTimerView extends WatchUi.View {
 
     function onHide() {
         stopTimers();
-        stopRecording();
+        finishRecording();
     }
 
     function T(identifier) {
@@ -64,6 +70,9 @@ class MeditateTimerView extends WatchUi.View {
         if (_isSetupMode) {
             applySetupLayout(dc);
             updateSetupLayoutText();
+        } else if (_isConfirmMode) {
+            applyConfirmLayout(dc);
+            updateConfirmLayoutText();
         } else {
             applySessionLayout(dc);
             updateSessionLayoutText();
@@ -71,7 +80,7 @@ class MeditateTimerView extends WatchUi.View {
 
         View.onUpdate(dc);
 
-        if (!_isSetupMode) {
+        if (!_isSetupMode && !_isConfirmMode) {
             drawPhaseProgressBar(dc, dc.getWidth(), (dc.getHeight() / 2) + 20);
         }
     }
@@ -83,6 +92,10 @@ class MeditateTimerView extends WatchUi.View {
         _setupDurationsMinutes = loadSavedSetupDurations();
         _setupSelection = 0;
         _isSetupMode = true;
+        _isConfirmMode = false;
+        _isPaused = false;
+        _confirmSelection = 0;
+        _confirmHasContinue = false;
 
         _phaseIndex = 0;
         _phaseDurations = [
@@ -101,6 +114,11 @@ class MeditateTimerView extends WatchUi.View {
         if (_tickTimer != null) {
             _tickTimer.stop();
             _tickTimer = null;
+        }
+
+        if (_pauseConfirmTimer != null) {
+            _pauseConfirmTimer.stop();
+            _pauseConfirmTimer = null;
         }
 
         if (_vibeTimer != null) {
@@ -127,6 +145,15 @@ class MeditateTimerView extends WatchUi.View {
         _activeLayoutId = "session";
     }
 
+    function applyConfirmLayout(dc) {
+        if (_activeLayoutId == "confirm") {
+            return;
+        }
+
+        setLayout(Rez.Layouts.ConfirmLayout(dc));
+        _activeLayoutId = "confirm";
+    }
+
     function updateSetupLayoutText() {
         setLayoutLabel("prepRow", formatSetupRowText(T(Rez.Strings.Preparation), _setupDurationsMinutes[0], _setupSelection == 0));
         setLayoutLabel("meditateRow", formatSetupRowText(T(Rez.Strings.Meditation), _setupDurationsMinutes[1], _setupSelection == 1));
@@ -142,13 +169,27 @@ class MeditateTimerView extends WatchUi.View {
     function updateSessionLayoutText() {
         var phaseLabel = _completed ? T(Rez.Strings.Complete) : _phaseOrder[_phaseIndex];
         var minuteText = formatTime(_remainingSeconds);
-        var progress = T(Rez.Strings.Step) + " " + (_phaseIndex + 1).format("%d") + " / 3";
+        var progress = _isPaused ? T(Rez.Strings.Paused) : T(Rez.Strings.Step) + " " + (_phaseIndex + 1).format("%d") + " / 3";
         var wellnessLineA = "HR " + _heartRateText;
 
         setLayoutLabel("phaseLabel", phaseLabel);
         setLayoutLabel("timerLabel", minuteText);
         setLayoutLabel("progressLabel", progress);
         setLayoutLabel("wellnessLineA", wellnessLineA);
+    }
+
+    function updateConfirmLayoutText() {
+        setLayoutLabel("confirmTitle", T(Rez.Strings.EndSession));
+        setLayoutLabel("continueRow", _confirmHasContinue ? formatConfirmOption(T(Rez.Strings.ContinueSession), _confirmSelection == 0) : "");
+        setLayoutLabel("finishRow", formatConfirmOption(T(Rez.Strings.FinishSave), _confirmSelection == getConfirmFinishIndex()));
+        setLayoutLabel("cancelRow", formatConfirmOption(T(Rez.Strings.CancelActivity), _confirmSelection == getConfirmCancelIndex()));
+        setLayoutLabel("confirmHelp1", T(Rez.Strings.UpDown));
+        setLayoutLabel("confirmHelp2", T(Rez.Strings.ConfirmHelp));
+    }
+
+    function formatConfirmOption(label, selected) {
+        var prefix = selected ? "> " : "  ";
+        return prefix + label;
     }
 
     function setLayoutLabel(id, text) {
@@ -195,6 +236,15 @@ class MeditateTimerView extends WatchUi.View {
     }
 
     function selectPreviousSetupOption() {
+        if (_isConfirmMode) {
+            _confirmSelection -= 1;
+            if (_confirmSelection < 0) {
+                _confirmSelection = getConfirmOptionCount() - 1;
+            }
+            WatchUi.requestUpdate();
+            return true;
+        }
+
         if (!_isSetupMode) {
             return false;
         }
@@ -208,6 +258,15 @@ class MeditateTimerView extends WatchUi.View {
     }
 
     function selectNextSetupOption() {
+        if (_isConfirmMode) {
+            _confirmSelection += 1;
+            if (_confirmSelection >= getConfirmOptionCount()) {
+                _confirmSelection = 0;
+            }
+            WatchUi.requestUpdate();
+            return true;
+        }
+
         if (!_isSetupMode) {
             return false;
         }
@@ -221,8 +280,25 @@ class MeditateTimerView extends WatchUi.View {
     }
 
     function activateSetupSelection() {
+        if (_isConfirmMode) {
+            if (_confirmHasContinue && _confirmSelection == 0) {
+                resumeSession();
+            } else if (_confirmSelection == getConfirmFinishIndex()) {
+                finishAndSaveSession();
+            } else {
+                cancelSession();
+            }
+            return true;
+        }
+
+        if (_isPaused) {
+            resumeSession();
+            return true;
+        }
+
         if (!_isSetupMode) {
-            return false;
+            pauseSession();
+            return true;
         }
 
         if (_setupSelection == 3) {
@@ -235,6 +311,11 @@ class MeditateTimerView extends WatchUi.View {
     }
 
     function decrementSetupSelection() {
+        if (_isConfirmMode) {
+            exitConfirmMode();
+            return true;
+        }
+
         if (!_isSetupMode || _setupSelection >= 3) {
             return false;
         }
@@ -270,6 +351,9 @@ class MeditateTimerView extends WatchUi.View {
         ];
 
         _isSetupMode = false;
+        _isConfirmMode = false;
+        _isPaused = false;
+        _confirmHasContinue = false;
         _activeLayoutId = "";
         _phaseIndex = 0;
         _remainingSeconds = _phaseDurations[0];
@@ -280,8 +364,7 @@ class MeditateTimerView extends WatchUi.View {
         advancePastCompletedPhases(false);
 
         if (!_completed) {
-            _tickTimer = new Timer.Timer();
-            _tickTimer.start(method(:onSecondTick) as Method() as Void, 1000, true);
+            startTickTimer();
         }
         WatchUi.requestUpdate();
     }
@@ -322,7 +405,7 @@ class MeditateTimerView extends WatchUi.View {
     }
 
     function onSecondTick() {
-        if (_isSetupMode || _completed) {
+        if (_isSetupMode || _isConfirmMode || _completed) {
             return;
         }
 
@@ -353,9 +436,157 @@ class MeditateTimerView extends WatchUi.View {
                 if (_tickTimer != null) {
                     _tickTimer.stop();
                 }
-                stopRecording();
+                finishRecording();
             }
         }
+    }
+
+    function handleSessionBack() {
+        if (_isSetupMode) {
+            return decrementSetupSelection();
+        }
+
+        if (_isConfirmMode) {
+            exitConfirmMode();
+            return true;
+        }
+
+        if (_isPaused) {
+            return true;
+        }
+
+        if (_completed) {
+            return false;
+        }
+
+        if (_phaseIndex < (_phaseOrder.size() - 1)) {
+            startSilentVibrationCue();
+            _phaseIndex += 1;
+            _remainingSeconds = _phaseDurations[_phaseIndex];
+            advancePastCompletedPhases(false);
+            WatchUi.requestUpdate();
+            return true;
+        }
+
+        enterConfirmMode(false);
+        return true;
+    }
+
+    function enterConfirmMode(hasContinueOption) {
+        if (_tickTimer != null) {
+            _tickTimer.stop();
+            _tickTimer = null;
+        }
+
+        if (_pauseConfirmTimer != null) {
+            _pauseConfirmTimer.stop();
+            _pauseConfirmTimer = null;
+        }
+
+        _isConfirmMode = true;
+        _confirmHasContinue = hasContinueOption;
+        _confirmSelection = 0;
+        _activeLayoutId = "";
+        WatchUi.requestUpdate();
+    }
+
+    function exitConfirmMode() {
+        _isConfirmMode = false;
+        _activeLayoutId = "";
+
+        if (_isPaused) {
+            schedulePauseConfirm();
+        } else if (!_completed) {
+            startTickTimer();
+        }
+
+        WatchUi.requestUpdate();
+    }
+
+    function pauseSession() {
+        if (_isSetupMode || _isConfirmMode || _isPaused || _completed) {
+            return;
+        }
+
+        if (_tickTimer != null) {
+            _tickTimer.stop();
+            _tickTimer = null;
+        }
+
+        _isPaused = true;
+        schedulePauseConfirm();
+        WatchUi.requestUpdate();
+    }
+
+    function resumeSession() {
+        if (_isSetupMode || _completed) {
+            return;
+        }
+
+        if (_pauseConfirmTimer != null) {
+            _pauseConfirmTimer.stop();
+            _pauseConfirmTimer = null;
+        }
+
+        _isPaused = false;
+        _isConfirmMode = false;
+        _confirmHasContinue = false;
+        _activeLayoutId = "";
+
+        startTickTimer();
+        WatchUi.requestUpdate();
+    }
+
+    function schedulePauseConfirm() {
+        if (_pauseConfirmTimer != null) {
+            _pauseConfirmTimer.stop();
+        }
+
+        _pauseConfirmTimer = new Timer.Timer();
+        _pauseConfirmTimer.start(method(:onPauseConfirmTimeout) as Method() as Void, 3000, false);
+    }
+
+    function onPauseConfirmTimeout() {
+        _pauseConfirmTimer = null;
+
+        if (_isPaused && !_isConfirmMode && !_completed) {
+            enterConfirmMode(true);
+        }
+    }
+
+    function startTickTimer() {
+        if (_completed || _isPaused || _isConfirmMode) {
+            return;
+        }
+
+        if (_tickTimer != null) {
+            _tickTimer.stop();
+        }
+
+        _tickTimer = new Timer.Timer();
+        _tickTimer.start(method(:onSecondTick) as Method() as Void, 1000, true);
+    }
+
+    function getConfirmOptionCount() {
+        return _confirmHasContinue ? 3 : 2;
+    }
+
+    function getConfirmFinishIndex() {
+        return _confirmHasContinue ? 1 : 0;
+    }
+
+    function getConfirmCancelIndex() {
+        return _confirmHasContinue ? 2 : 1;
+    }
+
+    function finishAndSaveSession() {
+        finishRecording();
+        System.exit();
+    }
+
+    function cancelSession() {
+        discardRecording();
+        System.exit();
     }
 
     function startRecording() {
@@ -379,7 +610,7 @@ class MeditateTimerView extends WatchUi.View {
         }
     }
 
-    function stopRecording() {
+    function finishRecording() {
         if (_recordingSession == null) {
             _recordingActive = false;
             return;
@@ -388,6 +619,22 @@ class MeditateTimerView extends WatchUi.View {
         try {
             _recordingSession.stop();
             _recordingSession.save();
+        } catch (e) {
+        }
+
+        _recordingSession = null;
+        _recordingActive = false;
+    }
+
+    function discardRecording() {
+        if (_recordingSession == null) {
+            _recordingActive = false;
+            return;
+        }
+
+        try {
+            _recordingSession.stop();
+            _recordingSession.discard();
         } catch (e) {
         }
 
@@ -451,6 +698,6 @@ class MeditateTimerDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onBack() {
-        return _view.decrementSetupSelection();
+        return _view.handleSessionBack();
     }
 }

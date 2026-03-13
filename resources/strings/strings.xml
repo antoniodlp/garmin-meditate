@@ -10,4 +10,12 @@
     <string id="Return">Return</string>
     <string id="Step">Step</string>
     <string id="Complete">Complete</string>
+    <string id="Paused">Paused</string>
+    <string id="EndSession">End Session</string>
+    <string id="SaveQuestion">Finish or cancel this activity?</string>
+    <string id="PauseQuestion">Paused. Continue, finish, or cancel?</string>
+    <string id="ContinueSession">Continue</string>
+    <string id="FinishSave">Finish and save</string>
+    <string id="CancelActivity">Cancel activity</string>
+    <string id="ConfirmHelp">Select: confirm, Back: return</string>
 </resources>
