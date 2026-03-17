@@ -35,12 +35,14 @@ class MeditateTimerView extends WatchUi.View {
 
     var _tickTimer as Timer.Timer?;
     var _pauseConfirmTimer as Timer.Timer?;
+    var _exitTimer as Timer.Timer?;
     var _vibeTimer as Timer.Timer?;
     var _vibePulsesRemaining  = 0;
     var _completed = false;
 
     var _recordingSession as ActivityRecording.Session?;
     var _recordingActive = false;
+    var _isExiting = false;
 
     var _heartRateText = "--";
     var _activeLayoutId = "";
@@ -59,7 +61,9 @@ class MeditateTimerView extends WatchUi.View {
 
     function onHide() {
         stopTimers();
-        finishRecording();
+        if (!_isExiting) {
+            finishRecording();
+        }
     }
 
     function T(identifier) {
@@ -106,6 +110,7 @@ class MeditateTimerView extends WatchUi.View {
         _remainingSeconds = _phaseDurations[0];
         _completed = false;
         _heartRateText = "--";
+        _isExiting = false;
 
         WatchUi.requestUpdate();
     }
@@ -119,6 +124,11 @@ class MeditateTimerView extends WatchUi.View {
         if (_pauseConfirmTimer != null) {
             _pauseConfirmTimer.stop();
             _pauseConfirmTimer = null;
+        }
+
+        if (_exitTimer != null) {
+            _exitTimer.stop();
+            _exitTimer = null;
         }
 
         if (_vibeTimer != null) {
@@ -581,11 +591,27 @@ class MeditateTimerView extends WatchUi.View {
 
     function finishAndSaveSession() {
         finishRecording();
-        System.exit();
+        queueAppExit();
     }
 
     function cancelSession() {
         discardRecording();
+        queueAppExit();
+    }
+
+    function queueAppExit() {
+        _isExiting = true;
+
+        if (_exitTimer != null) {
+            _exitTimer.stop();
+        }
+
+        _exitTimer = new Timer.Timer();
+        _exitTimer.start(method(:onExitTimer) as Method() as Void, 250, false);
+    }
+
+    function onExitTimer() {
+        _exitTimer = null;
         System.exit();
     }
 
