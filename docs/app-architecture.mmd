@@ -1,0 +1,65 @@
+flowchart TD
+    A[MeditateTimerApp] --> B["getInitialView()"]
+    B --> C[MeditateTimerView]
+    B --> D[MeditateTimerDelegate]
+
+    C --> E[Setup Mode]
+    C --> F[Session Mode]
+    C --> G[Paused State]
+    C --> H[Confirm Mode]
+
+    E --> E1[Load saved durations from Application.Storage]
+    E --> E2[Edit prep / meditate / return durations]
+    E --> E3[Start selected]
+    E3 --> E4[Save durations to Application.Storage]
+    E4 --> F
+
+    F --> F1[Tick timer updates remaining seconds]
+    F --> F2[Draw phase progress bar]
+    F --> F3[Refresh heart rate]
+    F --> F4[Back button skips to next phase with vibration]
+    F --> F5[Select pauses session]
+    F --> F6[Phase completes]
+
+    F6 --> I{More phases?}
+    I -->|Yes| F
+    I -->|No| J["finishRecording()"]
+    J --> K[Queue app exit]
+
+    F5 --> G
+    G --> G1[Tick timer stopped]
+    G --> G2[Pause confirmation timer starts: 3s]
+    G --> G3[Select resumes immediately]
+    G3 --> F
+    G2 --> H
+
+    F4 --> L{Last phase?}
+    L -->|No| F
+    L -->|Yes| H
+
+    H --> H1[Options: Continue, Finish and save, Cancel activity]
+    H --> H2[Back returns to previous state]
+    H1 --> M{Selection}
+    M -->|Continue| F
+    M -->|Finish and save| J
+    M -->|Cancel activity| N["discardRecording()"]
+    N --> K
+
+    C --> O["startRecording()"]
+    O --> P[ActivityRecording.Session]
+    P --> J
+    P --> N
+
+    D --> D1[onPreviousPage / onNextPage]
+    D --> D2[onSelect]
+    D --> D3[onBack]
+    D1 --> E
+    D2 --> E
+    D2 --> F
+    D2 --> G
+    D2 --> H
+    D3 --> E
+    D3 --> F
+    D3 --> H
+
+    K --> Q["Delayed System.exit()"]
