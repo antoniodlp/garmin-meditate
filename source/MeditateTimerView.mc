@@ -165,10 +165,10 @@ class MeditateTimerView extends WatchUi.View {
     }
 
     function updateSetupLayoutText() {
-        setLayoutLabel("prepRow", formatSetupRowText(T(Rez.Strings.Preparation), _setupDurationsMinutes[0], _setupSelection == 0));
-        setLayoutLabel("meditateRow", formatSetupRowText(T(Rez.Strings.Meditation), _setupDurationsMinutes[1], _setupSelection == 1));
-        setLayoutLabel("returnRow", formatSetupRowText(T(Rez.Strings.Return), _setupDurationsMinutes[2], _setupSelection == 2));
-        setLayoutLabel("startRow", _setupSelection == 3 ? "> " + T(Rez.Strings.Start) : "  " + T(Rez.Strings.Start));
+        setLayoutLabel("startRow", _setupSelection == 0 ? "> " + T(Rez.Strings.Start) : "  " + T(Rez.Strings.Start));
+        setLayoutLabel("prepRow", formatSetupRowText(T(Rez.Strings.Preparation), _setupDurationsMinutes[0], _setupSelection == 1));
+        setLayoutLabel("meditateRow", formatSetupRowText(T(Rez.Strings.Meditation), _setupDurationsMinutes[1], _setupSelection == 2));
+        setLayoutLabel("returnRow", formatSetupRowText(T(Rez.Strings.Return), _setupDurationsMinutes[2], _setupSelection == 3));
     }
 
     function formatSetupRowText(label, minutes, selected) {
@@ -311,7 +311,7 @@ class MeditateTimerView extends WatchUi.View {
             return true;
         }
 
-        if (_setupSelection == 3) {
+        if (_setupSelection == 0) {
             startMeditationSession();
             return true;
         }
@@ -326,7 +326,7 @@ class MeditateTimerView extends WatchUi.View {
             return true;
         }
 
-        if (!_isSetupMode || _setupSelection >= 3) {
+        if (!_isSetupMode || _setupSelection == 0) {
             return false;
         }
 
@@ -335,11 +335,12 @@ class MeditateTimerView extends WatchUi.View {
     }
 
     function adjustSelectedSetupDuration(delta) {
-        if (_setupSelection >= 3) {
+        if (_setupSelection == 0) {
             return;
         }
 
-        var updatedValue = _setupDurationsMinutes[_setupSelection] + delta;
+        var phaseIndex = _setupSelection - 1;
+        var updatedValue = _setupDurationsMinutes[phaseIndex] + delta;
         if (updatedValue < MIN_DURATION_MINUTES) {
             updatedValue = MIN_DURATION_MINUTES;
         }
@@ -347,7 +348,7 @@ class MeditateTimerView extends WatchUi.View {
             updatedValue = MAX_DURATION_MINUTES;
         }
 
-        _setupDurationsMinutes[_setupSelection] = updatedValue;
+        _setupDurationsMinutes[phaseIndex] = updatedValue;
         WatchUi.requestUpdate();
     }
 
@@ -621,9 +622,8 @@ class MeditateTimerView extends WatchUi.View {
 
         try {
             _recordingSession = ActivityRecording.createSession({
-                :name => "Meditation",
+                :name => T(Rez.Strings.AppName),
                 :sport => Activity.SPORT_MEDITATION,
-
             });
 
             if (_recordingSession != null) {

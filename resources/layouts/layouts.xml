@@ -1,10 +1,10 @@
 <layouts>
     <layout id="SetupLayout">
         <label id="setupTitle" x="50%" y="10%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_BLUE" font="Graphics.FONT_TINY" text="@Strings.Meditate"/>
-        <label id="prepRow" x="50%" y="27%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
-        <label id="meditateRow" x="50%" y="37%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
-        <label id="returnRow" x="50%" y="47%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
-        <label id="startRow" x="50%" y="57%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
+        <label id="startRow" x="50%" y="27%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
+        <label id="prepRow" x="50%" y="37%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
+        <label id="meditateRow" x="50%" y="47%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
+        <label id="returnRow" x="50%" y="57%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SMALL" text=""/>
         <label id="setupHelp1" x="50%" y="73%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SYSTEM_XTINY" text="@Strings.UpDown"/>
         <label id="setupHelp2" x="50%" y="80%" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_WHITE" font="Graphics.FONT_SYSTEM_XTINY" text="@Strings.Select"/>
     </layout>
