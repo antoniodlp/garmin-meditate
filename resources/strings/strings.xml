@@ -16,6 +16,7 @@
     <string id="SaveQuestion">Finish or cancel this activity?</string>
     <string id="PauseQuestion">Paused. Continue, finish, or cancel?</string>
     <string id="ContinueSession">Continue</string>
+    <string id="NextStep">Next step</string>
     <string id="FinishSave">Finish and save</string>
     <string id="CancelActivity">Cancel activity</string>
     <string id="ConfirmHelp">Select: confirm, Back: return</string>

@@ -16,6 +16,7 @@
     <string id="SaveQuestion">¿Guardar o cancelar esta actividad?</string>
     <string id="PauseQuestion">Pausado. ¿Continuar, guardar o cancelar?</string>
     <string id="ContinueSession">Continuar</string>
+    <string id="NextStep">Siguiente paso</string>
     <string id="FinishSave">Finalizar y guardar</string>
     <string id="CancelActivity">Cancelar actividad</string>
     <string id="ConfirmHelp">Seleccionar: confirmar, Atrás: volver</string>

@@ -36,6 +36,8 @@ class MeditateTimerView extends WatchUi.View {
     var _tickTimer as Timer.Timer?;
     var _pauseConfirmTimer as Timer.Timer?;
     var _exitTimer as Timer.Timer?;
+    var _backHoldTimer as Timer.Timer?;
+    var _backLongPressFired = false;
     var _vibeTimer as Timer.Timer?;
     var _vibePulsesRemaining  = 0;
     var _completed = false;
@@ -131,10 +133,45 @@ class MeditateTimerView extends WatchUi.View {
             _exitTimer = null;
         }
 
+        if (_backHoldTimer != null) {
+            _backHoldTimer.stop();
+            _backHoldTimer = null;
+        }
+
         if (_vibeTimer != null) {
             _vibeTimer.stop();
             _vibeTimer = null;
         }
+    }
+
+    function onBackDown() {
+        _backLongPressFired = false;
+        if (_backHoldTimer != null) {
+            _backHoldTimer.stop();
+        }
+        _backHoldTimer = new Timer.Timer();
+        _backHoldTimer.start(method(:onBackHoldTimeout) as Method() as Void, 600, false);
+    }
+
+    function onBackUp() {
+        if (_backHoldTimer != null) {
+            _backHoldTimer.stop();
+            _backHoldTimer = null;
+        }
+    }
+
+    function onBackHoldTimeout() {
+        _backHoldTimer = null;
+        _backLongPressFired = true;
+        advanceToNextPhase();
+    }
+
+    function consumeBackLongPress() {
+        if (_backLongPressFired) {
+            _backLongPressFired = false;
+            return true;
+        }
+        return false;
     }
 
     function applySetupLayout(dc) {
@@ -190,7 +227,8 @@ class MeditateTimerView extends WatchUi.View {
 
     function updateConfirmLayoutText() {
         setLayoutLabel("confirmTitle", T(Rez.Strings.EndSession));
-        setLayoutLabel("continueRow", _confirmHasContinue ? formatConfirmOption(T(Rez.Strings.ContinueSession), _confirmSelection == 0) : "");
+        setLayoutLabel("advanceRow", hasAdvanceOption() ? formatConfirmOption(T(Rez.Strings.NextStep), _confirmSelection == getConfirmAdvanceIndex()) : "");
+        setLayoutLabel("continueRow", _confirmHasContinue ? formatConfirmOption(T(Rez.Strings.ContinueSession), _confirmSelection == getConfirmContinueIndex()) : "");
         setLayoutLabel("finishRow", formatConfirmOption(T(Rez.Strings.FinishSave), _confirmSelection == getConfirmFinishIndex()));
         setLayoutLabel("cancelRow", formatConfirmOption(T(Rez.Strings.CancelActivity), _confirmSelection == getConfirmCancelIndex()));
         setLayoutLabel("confirmHelp1", T(Rez.Strings.UpDown));
@@ -291,7 +329,9 @@ class MeditateTimerView extends WatchUi.View {
 
     function activateSetupSelection() {
         if (_isConfirmMode) {
-            if (_confirmHasContinue && _confirmSelection == 0) {
+            if (_confirmSelection == getConfirmAdvanceIndex()) {
+                advanceFromConfirmMenu();
+            } else if (_confirmSelection == getConfirmContinueIndex()) {
                 resumeSession();
             } else if (_confirmSelection == getConfirmFinishIndex()) {
                 finishAndSaveSession();
@@ -462,28 +502,67 @@ class MeditateTimerView extends WatchUi.View {
             return true;
         }
 
-        if (_isPaused) {
-            return true;
-        }
-
         if (_completed) {
             return false;
         }
 
-        if (_phaseIndex < (_phaseOrder.size() - 1)) {
-            startSilentVibrationCue();
-            _phaseIndex += 1;
-            _remainingSeconds = _phaseDurations[_phaseIndex];
-            advancePastCompletedPhases(false);
-            WatchUi.requestUpdate();
-            return true;
-        }
-
-        enterConfirmMode(false);
+        enterConfirmMode(_isPaused);
         return true;
     }
 
+    function doAdvancePhase() {
+        if (_phaseIndex >= _phaseOrder.size() - 1) {
+            return false;
+        }
+
+        startSilentVibrationCue();
+        _phaseIndex += 1;
+        _remainingSeconds = _phaseDurations[_phaseIndex];
+        advancePastCompletedPhases(false);
+        WatchUi.requestUpdate();
+        return true;
+    }
+
+    function advanceToNextPhase() {
+        if (_isSetupMode || _completed || _isConfirmMode) {
+            return false;
+        }
+
+        if (_phaseIndex >= _phaseOrder.size() - 1) {
+            enterConfirmMode(_isPaused);
+            return true;
+        }
+
+        return doAdvancePhase();
+    }
+
+    function advanceFromConfirmMenu() {
+        if (!_isConfirmMode) {
+            return false;
+        }
+
+        _isConfirmMode = false;
+        _confirmHasContinue = false;
+        _activeLayoutId = "";
+        _isPaused = false;
+
+        if (_pauseConfirmTimer != null) {
+            _pauseConfirmTimer.stop();
+            _pauseConfirmTimer = null;
+        }
+
+        var didAdvance = doAdvancePhase();
+        if (!_completed) {
+            startTickTimer();
+        }
+        return didAdvance;
+    }
+
     function enterConfirmMode(hasContinueOption) {
+        enterConfirmModeWithDefault(hasContinueOption, false);
+    }
+
+    function enterConfirmModeWithDefault(hasContinueOption, prefersContinue) {
         if (_tickTimer != null) {
             _tickTimer.stop();
             _tickTimer = null;
@@ -496,8 +575,16 @@ class MeditateTimerView extends WatchUi.View {
 
         _isConfirmMode = true;
         _confirmHasContinue = hasContinueOption;
-        _confirmSelection = 0;
         _activeLayoutId = "";
+
+        if (hasAdvanceOption()) {
+            _confirmSelection = getConfirmAdvanceIndex();
+        } else if (prefersContinue && _confirmHasContinue) {
+            _confirmSelection = getConfirmContinueIndex();
+        } else {
+            _confirmSelection = 0;
+        }
+
         WatchUi.requestUpdate();
     }
 
@@ -561,7 +648,7 @@ class MeditateTimerView extends WatchUi.View {
         _pauseConfirmTimer = null;
 
         if (_isPaused && !_isConfirmMode && !_completed) {
-            enterConfirmMode(true);
+            enterConfirmModeWithDefault(true, true);
         }
     }
 
@@ -578,16 +665,34 @@ class MeditateTimerView extends WatchUi.View {
         _tickTimer.start(method(:onSecondTick) as Method() as Void, 1000, true);
     }
 
-    function getConfirmOptionCount() {
-        return _confirmHasContinue ? 3 : 2;
+    function hasAdvanceOption() {
+        return _isConfirmMode && _phaseIndex < (_phaseOrder.size() - 1);
+    }
+
+    function getConfirmAdvanceIndex() {
+        return hasAdvanceOption() ? 0 : -1;
+    }
+
+    function getConfirmContinueIndex() {
+        if (!_confirmHasContinue) {
+            return -1;
+        }
+        return hasAdvanceOption() ? 1 : 0;
     }
 
     function getConfirmFinishIndex() {
-        return _confirmHasContinue ? 1 : 0;
+        var base = 0;
+        if (hasAdvanceOption()) { base += 1; }
+        if (_confirmHasContinue) { base += 1; }
+        return base;
     }
 
     function getConfirmCancelIndex() {
-        return _confirmHasContinue ? 2 : 1;
+        return getConfirmFinishIndex() + 1;
+    }
+
+    function getConfirmOptionCount() {
+        return getConfirmCancelIndex() + 1;
     }
 
     function finishAndSaveSession() {
@@ -724,6 +829,21 @@ class MeditateTimerDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onBack() {
+        if (_view.consumeBackLongPress()) {
+            return true;
+        }
         return _view.handleSessionBack();
+    }
+
+    function onKey(keyEvent) {
+        if (keyEvent.getKey() == WatchUi.KEY_ESC) {
+            var type = keyEvent.getType();
+            if (type == WatchUi.PRESS_TYPE_DOWN) {
+                _view.onBackDown();
+            } else if (type == WatchUi.PRESS_TYPE_UP) {
+                _view.onBackUp();
+            }
+        }
+        return false;
     }
 }
