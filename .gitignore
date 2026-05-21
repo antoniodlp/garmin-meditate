@@ -1,3 +1,5 @@
 developer_key
 bin/**
 dist/garmin-meditate.iq
+.brv/
+.byterover-curate-*.xml

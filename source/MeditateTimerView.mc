@@ -180,7 +180,7 @@ class MeditateTimerView extends WatchUi.View {
         var phaseLabel = _completed ? T(Rez.Strings.Complete) : _phaseOrder[_phaseIndex];
         var minuteText = formatTime(_remainingSeconds);
         var progress = _isPaused ? T(Rez.Strings.Paused) : T(Rez.Strings.Step) + " " + (_phaseIndex + 1).format("%d") + " / 3";
-        var wellnessLineA = "HR " + _heartRateText;
+        var wellnessLineA = T(Rez.Strings.HeartRate) + " " + _heartRateText;
 
         setLayoutLabel("phaseLabel", phaseLabel);
         setLayoutLabel("timerLabel", minuteText);

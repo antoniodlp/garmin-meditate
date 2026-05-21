@@ -11,6 +11,7 @@
     <string id="Step">Step</string>
     <string id="Complete">Complete</string>
     <string id="Paused">Paused</string>
+    <string id="HeartRate">HR</string>
     <string id="EndSession">End Session</string>
     <string id="SaveQuestion">Finish or cancel this activity?</string>
     <string id="PauseQuestion">Paused. Continue, finish, or cancel?</string>
