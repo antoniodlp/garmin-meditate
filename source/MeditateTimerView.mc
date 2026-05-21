@@ -506,7 +506,7 @@ class MeditateTimerView extends WatchUi.View {
             return false;
         }
 
-        enterConfirmMode(_isPaused);
+        enterConfirmMode(true);
         return true;
     }
 
